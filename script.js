@@ -18,7 +18,11 @@ const recipleObserver = new IntersectionObserver((entries)=> {
     });
 }, options);
 
-const animatedCount = document.querySelectorAll(".animate-on-scroll .slide-left .slide-right .scale-up");
+staggered.forEach((card)=> {
+    recipleObserver.observe(card);
+});
+
+const animatedCount = document.querySelectorAll(".animate-on-scroll, .slide-left, .slide-right, .scale-up");
 const animateObserver = new IntersectionObserver((entries)=> {
     entries.forEach((entry)=> {
         if(entry.isIntersecting) {
@@ -94,3 +98,7 @@ function countUp(element, target, index, duration = 2000) {
     }, duration/16)
 }
 
+const statNum = document.querySelectorAll(".stat-number");
+
+countUp(statNum[0], 1000000, 0, 500)
+countUp(statNum[1], 99.9, 1, 500)
