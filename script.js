@@ -18,6 +18,19 @@ const recipleObserver = new IntersectionObserver((entries)=> {
     });
 }, options);
 
+const animatedCount = document.querySelectorAll(".animate-on-scroll .slide-left .slide-right .scale-up");
+const animateObserver = new IntersectionObserver((entries)=> {
+    entries.forEach((entry)=> {
+        if(entry.isIntersecting) {
+            entry.target.classList.add('animate')
+        }
+    });
+}, options);
+
+animatedCount.forEach((card)=> {
+    animateObserver.observe(card);
+});
+
 const scrollindicator = document.querySelector(".scroll-progress");
 
 window.addEventListener("scroll", () => {
@@ -58,15 +71,26 @@ staggered.forEach((card)=> {
     recipleObserver.observe(card);
 });
 
-const animatedCount = document.querySelectorAll(".animate-on-scroll .slide-left .slide-right .scale-up");
-const animateObserver = new IntersectionObserver((entries)=> {
-    entries.forEach((entry)=> {
-        if(entry.isIntersecting) {
-            entry.target.classList.add('animate')
+function countUp(element, target, index, duration = 2000) {
+    let current = 0;
+    const step = target/(duration/16);
+    setInterval(()=> {
+        if (current + step < target) {
+            current += step
+            element.innerHTML = Math.round(current)
+        }else {
+            switch(index) {
+                case 0:
+                    element.innerHTML = "1M+"
+                    break;
+                case 1:
+                    element.innerHTML = "99.9%"
+                    break;
+                default:
+                    element.innerHTML = target
+                    break;
+            }
         }
-    });
-}, options);
+    }, duration/16)
+}
 
-animatedCount.forEach((card)=> {
-    animateObserver.observe(card);
-});
