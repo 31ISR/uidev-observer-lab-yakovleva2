@@ -57,3 +57,16 @@ for (let i = 0; i < 50; i++) {
 staggered.forEach((card)=> {
     recipleObserver.observe(card);
 });
+
+const animatedCount = document.querySelectorAll(".animate-on-scroll .slide-left .slide-right .scale-up");
+const animateObserver = new IntersectionObserver((entries)=> {
+    entries.forEach((entry)=> {
+        if(entry.isIntersecting) {
+            entry.target.classList.add('animate')
+        }
+    });
+}, options);
+
+animatedCount.forEach((card)=> {
+    animateObserver.observe(card);
+});
